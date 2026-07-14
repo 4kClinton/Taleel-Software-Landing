@@ -111,9 +111,11 @@ nav.scrolled{background:rgba(250,246,235,0.94);border-bottom-color:var(--line-so
   height:60px;
 }
 .nav-brand{
-  font-family:var(--font-head);
-  font-size:17px;font-weight:600;letter-spacing:0.06em;
+  font-family:var(--font-scripted);
+  font-size:27px;font-weight:400;letter-spacing:0;
+  line-height:1;
   color:var(--burgundy);
+  padding-bottom:4px;
 }
 .nav-brand span{color:var(--text-muted);}
 .nav-links{display:none;gap:34px;align-items:center;}
