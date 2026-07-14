@@ -1,4 +1,27 @@
+import { Cinzel, Monsieur_La_Doulaise, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cinzel",
+  display: "swap",
+});
+
+const monsieur = Monsieur_La_Doulaise({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-script",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Taleel Software — Ready systems. Serious engineering. Built in Nairobi.",
@@ -14,7 +37,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${cinzel.variable} ${monsieur.variable} ${cormorant.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
