@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Taleel Software Ltd — Engineering Division of Taleel Holdings</title>
+<meta name="description" content="Taleel Software Ltd is the software engineering division of Taleel Holdings. Product engineering, AI systems, and financial infrastructure — built in Nairobi." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#EFEBE2;
+    --bone-deep:#E6E1D4;
+    --ink:#1A1F1A;
+    --ink-deep:#141814;
+    --border:#C9C2B2;
+    --border-dark:#2C332C;
+    --bronze:#9A7B4F;
+    --bronze-bright:#B8955F;
+    --muted:#5C6157;
+    --muted-dark:#8A9086;
+    --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px; --s8:128px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bone);
+    color:var(--ink);
+    font-family:'Figtree',sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--bronze);color:var(--bone);}
+  a{color:inherit;text-decoration:none;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--bronze);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .mono{
+    font-family:'Spline Sans Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+  .serif{font-family:'Marcellus',serif;font-weight:400;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:0 var(--s3);}
+  @media(min-width:768px){.wrap{padding:0 var(--s5);}}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(239,235,226,0.88);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:64px;
+  }
+  .nav-brand{display:flex;align-items:baseline;gap:10px;}
+  .nav-brand .serif{font-size:19px;letter-spacing:0.02em;}
+  .nav-brand .mono{color:var(--muted);font-size:10px;}
+  .nav-links{display:none;gap:var(--s4);align-items:center;}
+  @media(min-width:820px){.nav-links{display:flex;}}
+  .nav-links a{
+    font-size:14px;font-weight:500;color:var(--muted);
+    transition:color 150ms ease;cursor:pointer;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    font-size:14px;font-weight:600;color:var(--ink) !important;
+    border:1px solid var(--ink);
+    padding:9px 20px;border-radius:2px;
+    transition:background 200ms ease,color 200ms ease;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--bone) !important;}
+
+  /* ---------- HERO ---------- */
+  header{
+    padding:calc(64px + var(--s7)) 0 var(--s7);
+    border-bottom:1px solid var(--border);
+  }
+  .hero-eyebrow{
+    display:flex;align-items:center;gap:var(--s2);
+    color:var(--bronze);
+    margin-bottom:var(--s4);
+  }
+  .hero-eyebrow::before{
+    content:"";display:block;width:40px;height:1px;background:var(--bronze);
+  }
+  h1{
+    font-family:'Marcellus',serif;font-weight:400;
+    font-size:clamp(44px,7.5vw,88px);
+    line-height:1.06;
+    letter-spacing:0.005em;
+    max-width:14ch;
+  }
+  h1 em{font-style:normal;color:var(--bronze);}
+  .hero-sub{
+    margin-top:var(--s4);
+    max-width:52ch;
+    font-size:19px;
+    color:var(--muted);
+  }
+  .hero-actions{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s5);}
+  .btn{
+    display:inline-block;cursor:pointer;
+    font-family:'Figtree',sans-serif;font-size:15px;font-weight:600;
+    padding:14px 32px;border-radius:2px;
+    transition:transform 150ms ease,background 200ms ease,color 200ms ease,border-color 200ms ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--ink);color:var(--bone);border:1px solid var(--ink);}
+  .btn-primary:hover{background:var(--bronze);border-color:var(--bronze);}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--border);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .hero-meta{
+    margin-top:var(--s7);
+    display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);
+    color:var(--muted);
+  }
+  .hero-meta div{display:flex;flex-direction:column;gap:4px;}
+  .hero-meta .mono{color:var(--bronze);font-size:10px;}
+  .hero-meta span:last-child{font-size:15px;color:var(--ink);}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity 600ms ease,transform 600ms ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:var(--s7) 0;}
+  .sec-head{margin-bottom:var(--s6);}
+  .sec-head .mono{color:var(--bronze);display:block;margin-bottom:var(--s2);}
+  h2{
+    font-family:'Marcellus',serif;font-weight:400;
+    font-size:clamp(30px,4vw,44px);
+    line-height:1.15;
+    max-width:22ch;
+  }
+  .sec-head p{margin-top:var(--s2);max-width:56ch;color:var(--muted);}
+
+  /* ---------- PRACTICE (SERVICES) ---------- */
+  .practice{
+    display:grid;grid-template-columns:1fr;
+    border-top:1px solid var(--border);
+  }
+  @media(min-width:820px){.practice{grid-template-columns:1fr 1fr;}}
+  .practice-item{
+    border-bottom:1px solid var(--border);
+    padding:var(--s4) 0;
+  }
+  @media(min-width:820px){
+    .practice-item{padding:var(--s5) var(--s5) var(--s5) 0;}
+    .practice-item:nth-child(even){border-left:1px solid var(--border);padding-left:var(--s5);padding-right:0;}
+  }
+  .practice-item h3{
+    font-family:'Marcellus',serif;font-weight:400;
+    font-size:24px;line-height:1.2;
+    margin-bottom:var(--s2);
+  }
+  .practice-item p{color:var(--muted);font-size:16px;max-width:44ch;}
+  .practice-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--s3);}
+  .tag{
+    font-family:'Spline Sans Mono',monospace;
+    font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);
+    border:1px solid var(--border);
+    padding:5px 10px;border-radius:2px;
+  }
+
+  /* ---------- THE REGISTER (dark) ---------- */
+  .register{
+    background:var(--ink-deep);
+    color:var(--bone);
+  }
+  .register .sec-head .mono{color:var(--bronze-bright);}
+  .register .sec-head p{color:var(--muted-dark);}
+  .reg-table{border-top:1px solid var(--border-dark);}
+  .reg-row{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:var(--s2) var(--s3);
+    padding:var(--s3) 0;
+    border-bottom:1px solid var(--border-dark);
+    align-items:baseline;
+    transition:background 200ms ease;
+  }
+  @media(min-width:820px){
+    .reg-row{grid-template-columns:110px 1.1fr 1.6fr 130px;gap:var(--s3);}
+  }
+  .reg-row:hover{background:rgba(154,123,79,0.06);}
+  .reg-no{font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:0.12em;color:var(--bronze-bright);}
+  .reg-name{font-family:'Marcellus',serif;font-size:21px;line-height:1.2;}
+  .reg-desc{color:var(--muted-dark);font-size:15px;grid-column:2;}
+  @media(min-width:820px){.reg-desc{grid-column:auto;}}
+  .reg-status{
+    font-family:'Spline Sans Mono',monospace;font-size:11px;
+    letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--muted-dark);
+    grid-column:2;
+  }
+  @media(min-width:820px){.reg-status{grid-column:auto;text-align:right;}}
+  .reg-row.active{background:rgba(154,123,79,0.10);}
+  .reg-row.active .reg-status{color:var(--bronze-bright);}
+  .reg-row.active .reg-name::after{
+    content:"— this division";
+    font-family:'Spline Sans Mono',monospace;
+    font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--bronze-bright);
+    margin-left:12px;
+    vertical-align:middle;
+  }
+  .reg-note{
+    margin-top:var(--s4);
+    font-size:14px;color:var(--muted-dark);
+    max-width:60ch;
+  }
+
+  /* ---------- METHOD ---------- */
+  .method-grid{
+    display:grid;grid-template-columns:1fr;gap:0;
+    border-top:1px solid var(--border);
+  }
+  @media(min-width:820px){.method-grid{grid-template-columns:repeat(3,1fr);}}
+  .method-item{
+    border-bottom:1px solid var(--border);
+    padding:var(--s4) 0;
+  }
+  @media(min-width:820px){
+    .method-item{padding:var(--s4) var(--s4) var(--s4) 0;}
+    .method-item + .method-item{border-left:1px solid var(--border);padding-left:var(--s4);}
+  }
+  .method-item .mono{color:var(--bronze);display:block;margin-bottom:var(--s2);}
+  .method-item h3{font-family:'Marcellus',serif;font-weight:400;font-size:21px;margin-bottom:var(--s1);}
+  .method-item p{color:var(--muted);font-size:15px;}
+
+  /* ---------- CAPABILITY / PROOF ---------- */
+  .proof{background:var(--bone-deep);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .proof-list{display:grid;grid-template-columns:1fr;gap:var(--s3);}
+  @media(min-width:820px){.proof-list{grid-template-columns:1fr 1fr;}}
+  .proof-card{
+    background:var(--bone);
+    border:1px solid var(--border);
+    border-radius:2px;
+    padding:var(--s4);
+    transition:border-color 200ms ease;
+  }
+  .proof-card:hover{border-color:var(--bronze);}
+  .proof-card .mono{color:var(--bronze);display:block;margin-bottom:var(--s2);}
+  .proof-card h3{font-family:'Marcellus',serif;font-weight:400;font-size:20px;margin-bottom:var(--s1);}
+  .proof-card p{color:var(--muted);font-size:15px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{border-top:1px solid var(--border);}
+  .contact-grid{display:grid;grid-template-columns:1fr;gap:var(--s5);}
+  @media(min-width:820px){.contact-grid{grid-template-columns:1.2fr 1fr;align-items:start;}}
+  .contact h2{max-width:16ch;}
+  .contact-info{display:flex;flex-direction:column;gap:var(--s3);}
+  .contact-info .mono{color:var(--bronze);margin-bottom:2px;display:block;}
+  .contact-info a{font-family:'Marcellus',serif;font-size:22px;transition:color 150ms ease;}
+  .contact-info a:hover{color:var(--bronze);}
+  .contact-info p{color:var(--muted);font-size:15px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--border);
+    padding:var(--s4) 0;
+  }
+  .foot-inner{
+    display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);
+    justify-content:space-between;align-items:baseline;
+    color:var(--muted);font-size:13px;
+  }
+  .foot-inner .serif{font-size:15px;color:var(--ink);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-brand" aria-label="Taleel Software Ltd — home">
+      <span class="serif">Taleel Software</span>
+      <span class="mono">Ltd</span>
+    </a>
+    <div class="nav-links">
+      <a href="#practice">Practice</a>
+      <a href="#register">The Register</a>
+      <a href="#method">Method</a>
+      <a href="#work">Capability</a>
+      <a href="#contact" class="nav-cta">Start a conversation</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="hero-eyebrow reveal">
+      <span class="mono">A division of Taleel Holdings · Nairobi</span>
+    </div>
+    <h1 class="reveal" style="transition-delay:80ms;">Software built to hold <em>value</em>, not just ship.</h1>
+    <p class="hero-sub reveal" style="transition-delay:160ms;">
+      Taleel Software Ltd is the engineering division of Taleel Holdings. We design and build
+      production systems for businesses in Kenya and East Africa — the kind that move money,
+      run operations, and stay standing.
+    </p>
+    <div class="hero-actions reveal" style="transition-delay:240ms;">
+      <a class="btn btn-primary" href="#contact">Start a conversation</a>
+      <a class="btn btn-ghost" href="#practice">See the practice</a>
+    </div>
+    <div class="hero-meta reveal" style="transition-delay:320ms;">
+      <div><span class="mono">Registered</span><span>Nairobi, Kenya</span></div>
+      <div><span class="mono">Parent</span><span>Taleel Holdings Ltd</span></div>
+      <div><span class="mono">Core stack</span><span>Next.js · Convex · React Native · Claude API</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono">The practice</span>
+      <h2>Four disciplines. One standard.</h2>
+      <p>We take on fewer engagements and go deeper on each. Every build ships with documentation, monitoring, and a clear handover — because software you can't maintain is a liability, not an asset.</p>
+    </div>
+    <div class="practice">
+      <div class="practice-item reveal">
+        <h3>Product engineering</h3>
+        <p>Full-cycle web and mobile products — from schema design to app-store release. Built on a modern real-time stack so your product feels fast on day one and on day one thousand.</p>
+        <div class="practice-tags">
+          <span class="tag">Next.js</span><span class="tag">Convex</span><span class="tag">React Native / Expo</span>
+        </div>
+      </div>
+      <div class="practice-item reveal">
+        <h3>AI systems</h3>
+        <p>Applied AI that earns its keep — agent pipelines, retrieval systems, and LLM-powered features integrated into real workflows, not bolted on as a demo.</p>
+        <div class="practice-tags">
+          <span class="tag">Claude API</span><span class="tag">Agent pipelines</span><span class="tag">Vision &amp; multimodal</span>
+        </div>
+      </div>
+      <div class="practice-item reveal">
+        <h3>Financial infrastructure</h3>
+        <p>Payments, reconciliation, and money movement built for the East African rails — M-Pesa, bank integrations, and IPN flows with idempotency and audit trails treated as first-class requirements.</p>
+        <div class="practice-tags">
+          <span class="tag">M-Pesa / Daraja</span><span class="tag">Bank APIs</span><span class="tag">Reconciliation</span>
+        </div>
+      </div>
+      <div class="practice-item reveal">
+        <h3>Operations platforms</h3>
+        <p>Internal systems that run the business — admin portals, manager dashboards, field and rider apps, and the API layer that keeps them honest with each other.</p>
+        <div class="practice-tags">
+          <span class="tag">Multi-branch</span><span class="tag">Role-based access</span><span class="tag">Reporting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="register" class="register">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono">The register</span>
+      <h2>One house. Several ventures.</h2>
+      <p>Taleel Software is not an agency guessing at your problems from the outside. The holding company operates its own ventures — so the systems we sell are the systems we run.</p>
+    </div>
+    <div class="reg-table reveal">
+      <div class="reg-row">
+        <span class="reg-no">TH—01</span>
+        <span class="reg-name">Swyft</span>
+        <span class="reg-desc">Proptech &amp; logistics platform for the Kenyan rental market.</span>
+        <span class="reg-status">Operating</span>
+      </div>
+      <div class="reg-row">
+        <span class="reg-no">TH—02</span>
+        <span class="reg-name">Swyft Agent</span>
+        <span class="reg-desc">Rent reconciliation SaaS for landlords and property managers, across five bank and mobile-money sources.</span>
+        <span class="reg-status">Operating</span>
+      </div>
+      <div class="reg-row">
+        <span class="reg-no">TH—03</span>
+        <span class="reg-name">Munchez</span>
+        <span class="reg-desc">Cloud kitchen venture serving Nairobi.</span>
+        <span class="reg-status">Operating</span>
+      </div>
+      <div class="reg-row active">
+        <span class="reg-no">TH—04</span>
+        <span class="reg-name">Taleel Software</span>
+        <span class="reg-desc">The engineering division. Client work, product builds, and the technical backbone of the house.</span>
+        <span class="reg-status">Active</span>
+      </div>
+    </div>
+    <p class="reg-note reveal">Every venture in the register runs on infrastructure built by this division. When we propose an architecture, it is one we have already trusted with our own revenue.</p>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono">Method</span>
+      <h2>How an engagement runs.</h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-item reveal">
+        <span class="mono">Scope</span>
+        <h3>Findings before quotes</h3>
+        <p>We start with a short discovery — your operations, your data, your constraints — and return a written findings document and fixed-scope proposal. No estimates from thin air.</p>
+      </div>
+      <div class="method-item reveal">
+        <span class="mono">Build</span>
+        <h3>Phased, visible delivery</h3>
+        <p>Work ships in phases with working software at each gate. You see the product in your hands early, and every phase has a defined acceptance line.</p>
+      </div>
+      <div class="method-item reveal">
+        <span class="mono">Hold</span>
+        <h3>Handover or retainer</h3>
+        <p>At delivery you get documentation, credentials, and a monitored, secured system. Keep us on retainer for evolution, or take the keys — either way, you own it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="proof">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono">Capability</span>
+      <h2>Systems we have shipped.</h2>
+      <p>Selected work across the house and client engagements, described by what the systems do.</p>
+    </div>
+    <div class="proof-list">
+      <div class="proof-card reveal">
+        <span class="mono">Fintech</span>
+        <h3>Multi-bank reconciliation engine</h3>
+        <p>Per-source adapters normalising Equity, Co-op, Stanbic, KCB and M-Pesa transaction feeds into a common schema — with idempotent ingestion and verified account ownership gates.</p>
+      </div>
+      <div class="proof-card reveal">
+        <span class="mono">Retail operations</span>
+        <h3>Multi-branch supermarket backbone</h3>
+        <p>Branch master data, super-admin portal, manager dashboards, rider app and API layer — repositioning a customer-app idea into the operations system the business actually needed.</p>
+      </div>
+      <div class="proof-card reveal">
+        <span class="mono">AI / Commerce</span>
+        <h3>Virtual try-on pipeline</h3>
+        <p>AI-powered fashion try-on integrated into live Shopify storefronts, with per-product deep links and a content-to-catalogue matching pipeline.</p>
+      </div>
+      <div class="proof-card reveal">
+        <span class="mono">Security</span>
+        <h3>Audit &amp; hardening practice</h3>
+        <p>Production security reviews across auth, data-access rules and payment flows — including live-endpoint testing and disclosure of critical vulnerabilities before they became incidents.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="mono" style="color:var(--bronze);display:block;margin-bottom:16px;">Start a conversation</span>
+      <h2>Tell us what the business needs to do. We'll tell you what to build.</h2>
+      <div class="hero-actions" style="margin-top:32px;">
+        <a class="btn btn-primary" href="mailto:software@taleelholdings.com?subject=Project%20enquiry%20—%20Taleel%20Software">Email the division</a>
+      </div>
+    </div>
+    <div class="contact-info reveal">
+      <div>
+        <span class="mono">Email</span>
+        <a href="mailto:software@taleelholdings.com">software@taleelholdings.com</a>
+      </div>
+      <div>
+        <span class="mono">Location</span>
+        <p>Nairobi, Kenya — working across East Africa and remote worldwide.</p>
+      </div>
+      <div>
+        <span class="mono">Response</span>
+        <p>Enquiries answered within two working days, with a discovery call proposed where there's a fit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span class="serif">Taleel Software Ltd</span>
+    <span>A division of Taleel Holdings Ltd · Nairobi, Kenya</span>
+    <span>© 2026 Taleel Holdings Ltd. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

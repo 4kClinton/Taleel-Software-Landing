@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Taleel Software — Ready systems. Serious engineering. Built in Nairobi.</title>
+<meta name="description" content="Taleel Software builds production software for companies in Kenya — ready-to-deploy rental property management, AI conversational vision, and AI agents that automate and optimize business operations." />
+<style>
+  :root{
+    --black:#000000;
+    --near-black:#0a0a0c;
+    --panel:#131316;
+    --panel-2:#1a1a1f;
+    --white:#f5f5f7;
+    --grey:#a1a1a6;
+    --grey-dark:#6e6e73;
+    --hairline:rgba(255,255,255,0.12);
+    --hairline-soft:rgba(255,255,255,0.07);
+    --bronze:#B8955F;
+    --bronze-hi:#E8C88A;
+    --bone:#F5F3EE;
+    --bone-deep:#EBE8E0;
+    --ink:#1A1F1A;
+    --ink-muted:#5C6157;
+    --border-light:#D8D3C6;
+    --radius:24px;
+    --ease:cubic-bezier(0.25,0.1,0.25,1);
+    --ease-out:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Inter,sans-serif;
+    font-size:17px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--bronze);color:var(--black);}
+  a{color:inherit;text-decoration:none;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--bronze);outline-offset:3px;border-radius:4px;}
+  img{max-width:100%;}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  @media(min-width:768px){.wrap{padding:0 44px;}}
+
+  .eyebrow{
+    display:inline-block;
+    font-size:13px;font-weight:600;
+    letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--bronze);
+    margin-bottom:20px;
+  }
+  .grad{
+    background:linear-gradient(100deg,var(--bronze) 0%,var(--bronze-hi) 50%,var(--bronze) 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+  }
+
+  /* ============ SCROLL ANIMATION PRIMITIVES ============ */
+  .reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity 900ms var(--ease-out),transform 900ms var(--ease-out);
+    will-change:opacity,transform;
+  }
+  .reveal.in{opacity:1;transform:none;}
+  .reveal-scale{
+    opacity:0;
+    transform:translateY(60px) scale(0.96);
+    transition:opacity 1000ms var(--ease-out),transform 1000ms var(--ease-out);
+    will-change:opacity,transform;
+  }
+  .reveal-scale.in{opacity:1;transform:none;}
+  [data-delay="1"]{transition-delay:100ms;}
+  [data-delay="2"]{transition-delay:200ms;}
+  [data-delay="3"]{transition-delay:300ms;}
+  [data-delay="4"]{transition-delay:400ms;}
+  [data-parallax]{will-change:transform;}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .reveal,.reveal-scale{opacity:1;transform:none;transition:none;}
+    [data-parallax]{transform:none !important;}
+    *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;}
+  }
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid transparent;
+    transition:border-color 400ms ease,background 400ms ease;
+  }
+  nav.scrolled{background:rgba(0,0,0,0.78);border-bottom-color:var(--hairline-soft);}
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:52px;
+  }
+  .nav-brand{font-size:17px;font-weight:600;letter-spacing:-0.01em;}
+  .nav-brand span{color:var(--bronze);}
+  .nav-links{display:none;gap:36px;align-items:center;}
+  @media(min-width:820px){.nav-links{display:flex;}}
+  .nav-links a{
+    font-size:13px;font-weight:500;color:var(--grey);
+    transition:color 200ms ease;
+  }
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{
+    font-size:13px;font-weight:600;
+    color:var(--black) !important;
+    background:var(--white);
+    padding:7px 18px;border-radius:999px;
+    transition:background 200ms ease,transform 200ms ease;
+  }
+  .nav-cta:hover{background:var(--bronze-hi);transform:scale(1.03);}
+  .nav-progress{
+    position:absolute;bottom:-1px;left:0;height:1px;width:0;
+    background:linear-gradient(90deg,var(--bronze),var(--bronze-hi));
+    transition:width 100ms linear;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;
+    position:relative;
+    padding:120px 24px 80px;
+    overflow:hidden;
+  }
+  .hero-glow{
+    position:absolute;inset:auto;
+    top:8%;left:50%;transform:translateX(-50%);
+    width:min(1100px,140vw);aspect-ratio:2/1;
+    background:radial-gradient(ellipse at center,rgba(184,149,95,0.22) 0%,rgba(184,149,95,0.06) 40%,transparent 70%);
+    pointer-events:none;
+    filter:blur(20px);
+  }
+  .hero-content{position:relative;z-index:2;will-change:transform,opacity;}
+  .hero h1{
+    font-size:clamp(46px,8.5vw,104px);
+    font-weight:700;
+    line-height:1.03;
+    letter-spacing:-0.035em;
+    max-width:15ch;
+    margin:0 auto;
+  }
+  .hero-sub{
+    margin:28px auto 0;
+    max-width:56ch;
+    font-size:clamp(18px,2.3vw,23px);
+    line-height:1.45;
+    font-weight:400;
+    color:var(--grey);
+    letter-spacing:-0.01em;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:44px;}
+  .btn{
+    display:inline-block;cursor:pointer;
+    font-size:16px;font-weight:600;letter-spacing:-0.01em;
+    padding:14px 30px;border-radius:999px;
+    transition:transform 250ms var(--ease),background 250ms ease,color 250ms ease,border-color 250ms ease,box-shadow 250ms ease;
+  }
+  .btn:hover{transform:scale(1.04);}
+  .btn:active{transform:scale(0.98);}
+  .btn-primary{
+    background:linear-gradient(120deg,var(--bronze) 0%,var(--bronze-hi) 100%);
+    color:var(--black);
+  }
+  .btn-primary:hover{box-shadow:0 8px 40px rgba(184,149,95,0.35);}
+  .btn-ghost{
+    background:transparent;color:var(--white);
+    border:1px solid var(--hairline);
+  }
+  .btn-ghost:hover{border-color:var(--white);}
+  .hero-scroll{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    color:var(--grey-dark);font-size:11px;font-weight:600;
+    letter-spacing:0.2em;text-transform:uppercase;
+    z-index:2;
+  }
+  .hero-scroll::after{
+    content:"";width:1px;height:44px;
+    background:linear-gradient(to bottom,var(--bronze),transparent);
+    animation:drip 2.2s ease-in-out infinite;
+  }
+  @keyframes drip{
+    0%{transform:scaleY(0);transform-origin:top;}
+    45%{transform:scaleY(1);transform-origin:top;}
+    55%{transform:scaleY(1);transform-origin:bottom;}
+    100%{transform:scaleY(0);transform-origin:bottom;}
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section{padding:120px 0;position:relative;}
+  @media(min-width:768px){section{padding:160px 0;}}
+  .sec-head{text-align:center;max-width:820px;margin:0 auto 90px;}
+  .sec-head h2{
+    font-size:clamp(36px,5.5vw,64px);
+    font-weight:700;line-height:1.06;
+    letter-spacing:-0.03em;
+  }
+  .sec-head p{
+    margin:22px auto 0;max-width:58ch;
+    font-size:clamp(17px,2vw,21px);line-height:1.5;
+    color:var(--grey);letter-spacing:-0.01em;
+  }
+
+  /* ============ PRODUCT SHOWCASES ============ */
+  .product{
+    background:var(--panel);
+    border:1px solid var(--hairline-soft);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-bottom:36px;
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  @media(min-width:900px){
+    .product{grid-template-columns:1fr 1fr;align-items:center;min-height:560px;}
+    .product.flip .product-copy{order:2;}
+    .product.flip .product-visual{order:1;}
+  }
+  .product-copy{padding:56px 32px;}
+  @media(min-width:900px){.product-copy{padding:80px 72px;}}
+  .product-kicker{
+    font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--bronze);margin-bottom:16px;display:block;
+  }
+  .product h3{
+    font-size:clamp(30px,4vw,46px);
+    font-weight:700;line-height:1.08;letter-spacing:-0.028em;
+    margin-bottom:18px;
+  }
+  .product p{color:var(--grey);font-size:17px;line-height:1.55;max-width:46ch;letter-spacing:-0.005em;}
+  .product-feats{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:12px;}
+  .product-feats li{
+    display:flex;align-items:baseline;gap:12px;
+    color:var(--white);font-size:15px;font-weight:500;
+  }
+  .product-feats li::before{
+    content:"";flex:none;width:6px;height:6px;border-radius:50%;
+    background:var(--bronze);transform:translateY(-2px);
+  }
+  .product-link{
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:32px;
+    font-size:16px;font-weight:600;color:var(--bronze-hi);
+    transition:gap 250ms var(--ease);
+  }
+  .product-link:hover{gap:12px;}
+  .product-visual{
+    position:relative;
+    min-height:380px;height:100%;
+    display:flex;align-items:center;justify-content:center;
+    padding:40px 24px;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 110%,rgba(184,149,95,0.16),transparent 65%),
+      var(--panel-2);
+    overflow:hidden;
+  }
+
+  /* --- mock: shared window chrome --- */
+  .mock{
+    width:min(440px,100%);
+    background:#101014;
+    border:1px solid var(--hairline);
+    border-radius:16px;
+    box-shadow:0 40px 80px rgba(0,0,0,0.55);
+    overflow:hidden;
+    font-size:12px;
+  }
+  .mock-bar{
+    display:flex;align-items:center;gap:6px;
+    padding:11px 14px;
+    border-bottom:1px solid var(--hairline-soft);
+  }
+  .mock-bar i{width:9px;height:9px;border-radius:50%;background:#2e2e33;display:block;}
+  .mock-bar i:first-child{background:#3a2f24;}
+  .mock-bar span{margin-left:8px;color:var(--grey-dark);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;}
+
+  /* --- mock 1: property dashboard --- */
+  .mock-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px;}
+  .mock-stat{background:var(--panel-2);border:1px solid var(--hairline-soft);border-radius:10px;padding:12px 12px 10px;}
+  .mock-stat b{display:block;font-size:16px;font-weight:700;letter-spacing:-0.02em;color:var(--white);}
+  .mock-stat em{font-style:normal;font-size:9.5px;color:var(--grey-dark);text-transform:uppercase;letter-spacing:0.08em;}
+  .mock-stat u{display:block;text-decoration:none;font-size:9.5px;color:#7dbb8a;margin-top:3px;font-weight:600;}
+  .mock-rows{padding:0 14px 16px;display:flex;flex-direction:column;gap:8px;}
+  .mock-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:var(--panel-2);border:1px solid var(--hairline-soft);
+    border-radius:10px;padding:10px 12px;
+  }
+  .mock-row div{display:flex;flex-direction:column;gap:1px;}
+  .mock-row b{font-size:11.5px;font-weight:600;color:var(--white);}
+  .mock-row em{font-style:normal;font-size:9.5px;color:var(--grey-dark);}
+  .pill{
+    font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    padding:4px 9px;border-radius:999px;white-space:nowrap;
+  }
+  .pill-ok{background:rgba(125,187,138,0.14);color:#7dbb8a;}
+  .pill-wait{background:rgba(232,200,138,0.12);color:var(--bronze-hi);}
+
+  /* --- mock 2: conversational vision --- */
+  .mock-cam{
+    position:relative;height:180px;margin:14px;border-radius:12px;overflow:hidden;
+    background:
+      radial-gradient(circle at 30% 40%,rgba(184,149,95,0.35),transparent 50%),
+      radial-gradient(circle at 75% 65%,rgba(90,110,160,0.3),transparent 55%),
+      linear-gradient(160deg,#1c1c22,#0e0e12);
+  }
+  .scanline{
+    position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--bronze-hi),transparent);
+    box-shadow:0 0 18px rgba(232,200,138,0.6);
+    animation:scan 3.4s ease-in-out infinite;
+  }
+  @keyframes scan{0%,100%{top:8%;}50%{top:88%;}}
+  .cam-box{
+    position:absolute;border:1.5px solid var(--bronze-hi);border-radius:8px;
+    box-shadow:0 0 0 4000px rgba(0,0,0,0.08);
+  }
+  .cam-box::after{
+    content:attr(data-label);
+    position:absolute;top:-20px;left:-1px;
+    background:var(--bronze-hi);color:var(--black);
+    font-size:8.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+    padding:3px 7px;border-radius:5px;white-space:nowrap;
+  }
+  .mock-chat{padding:0 14px 16px;display:flex;flex-direction:column;gap:8px;}
+  .bubble{
+    max-width:82%;padding:9px 13px;border-radius:14px;
+    font-size:11.5px;line-height:1.45;
+  }
+  .bubble-user{align-self:flex-end;background:var(--bronze);color:var(--black);font-weight:500;border-bottom-right-radius:4px;}
+  .bubble-ai{align-self:flex-start;background:var(--panel-2);border:1px solid var(--hairline-soft);color:var(--white);border-bottom-left-radius:4px;}
+
+  /* --- mock 3: agent flow --- */
+  .flow{padding:22px 18px 26px;display:flex;flex-direction:column;gap:0;align-items:stretch;}
+  .node{
+    display:flex;align-items:center;gap:12px;
+    background:var(--panel-2);border:1px solid var(--hairline-soft);
+    border-radius:12px;padding:12px 14px;
+    position:relative;z-index:1;
+  }
+  .node b{font-size:11.5px;font-weight:600;color:var(--white);display:block;}
+  .node em{font-style:normal;font-size:9.5px;color:var(--grey-dark);display:block;}
+  .node-dot{
+    flex:none;width:26px;height:26px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(184,149,95,0.14);
+    color:var(--bronze-hi);font-size:12px;
+  }
+  .node .pill{margin-left:auto;}
+  .node-live .pill-ok{position:relative;}
+  .flow-link{
+    width:1px;height:22px;margin-left:31px;
+    background:linear-gradient(to bottom,var(--bronze),rgba(184,149,95,0.2));
+    position:relative;
+  }
+  .flow-link::after{
+    content:"";position:absolute;left:-2px;top:0;width:5px;height:5px;border-radius:50%;
+    background:var(--bronze-hi);
+    animation:flowdot 1.8s linear infinite;
+  }
+  @keyframes flowdot{0%{top:0;opacity:0;}15%{opacity:1;}85%{opacity:1;}100%{top:calc(100% - 5px);opacity:0;}}
+  .flow-link:nth-of-type(4)::after{animation-delay:0.9s;}
+
+  /* ============ STATS BAND ============ */
+  .stats{
+    border-top:1px solid var(--hairline-soft);
+    border-bottom:1px solid var(--hairline-soft);
+    padding:90px 0;
+  }
+  .stats-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:52px 24px;text-align:center;
+  }
+  @media(min-width:820px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+  .stat b{
+    display:block;
+    font-size:clamp(44px,6vw,72px);
+    font-weight:700;letter-spacing:-0.035em;line-height:1;
+  }
+  .stat span{
+    display:block;margin-top:12px;
+    font-size:14px;color:var(--grey);letter-spacing:-0.005em;
+  }
+
+  /* ============ LIGHT SECTIONS ============ */
+  .light{background:var(--bone);color:var(--ink);}
+  .light .sec-head p{color:var(--ink-muted);}
+  .light .eyebrow{color:#9A7B4F;}
+
+  .disc-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+  @media(min-width:820px){.disc-grid{grid-template-columns:1fr 1fr;}}
+  .disc{
+    background:#FFFFFF;
+    border:1px solid var(--border-light);
+    border-radius:var(--radius);
+    padding:44px 40px;
+    transition:transform 400ms var(--ease-out),box-shadow 400ms ease;
+  }
+  .disc:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(26,31,26,0.10);}
+  .disc h3{font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;}
+  .disc p{color:var(--ink-muted);font-size:16px;line-height:1.55;max-width:46ch;}
+  .disc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
+  .tag{
+    font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+    color:#9A7B4F;
+    background:rgba(154,123,79,0.09);
+    padding:6px 12px;border-radius:999px;
+  }
+
+  /* ============ REGISTER (dark) ============ */
+  .register-list{max-width:900px;margin:0 auto;}
+  .reg-row{
+    display:grid;grid-template-columns:56px 1fr auto;gap:10px 20px;
+    align-items:baseline;
+    padding:30px 8px;
+    border-bottom:1px solid var(--hairline-soft);
+    transition:background 250ms ease,padding 250ms ease;
+    border-radius:12px;
+  }
+  @media(min-width:720px){.reg-row{grid-template-columns:90px 1fr 1.4fr auto;padding:34px 20px;}}
+  .reg-row:hover{background:rgba(184,149,95,0.05);}
+  .reg-row:first-child{border-top:1px solid var(--hairline-soft);}
+  .reg-no{font-size:12px;font-weight:600;letter-spacing:0.12em;color:var(--bronze);}
+  .reg-name{font-size:22px;font-weight:700;letter-spacing:-0.02em;}
+  .reg-desc{color:var(--grey);font-size:15px;grid-column:2 / -1;}
+  @media(min-width:720px){.reg-desc{grid-column:auto;}}
+  .reg-status{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey-dark);}
+  .reg-row.active .reg-status{color:var(--bronze-hi);}
+  .reg-note{
+    max-width:640px;margin:44px auto 0;text-align:center;
+    color:var(--grey);font-size:15px;line-height:1.6;
+  }
+
+  /* ============ METHOD ============ */
+  .method-grid{display:grid;grid-template-columns:1fr;gap:20px;counter-reset:step;}
+  @media(min-width:820px){.method-grid{grid-template-columns:repeat(3,1fr);}}
+  .method{
+    background:#FFFFFF;border:1px solid var(--border-light);
+    border-radius:var(--radius);padding:44px 36px;
+    counter-increment:step;
+  }
+  .method::before{
+    content:"0" counter(step);
+    display:block;
+    font-size:14px;font-weight:700;letter-spacing:0.12em;
+    color:#9A7B4F;margin-bottom:22px;
+  }
+  .method h3{font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;}
+  .method p{color:var(--ink-muted);font-size:15.5px;line-height:1.55;}
+
+  /* ============ FINAL CTA ============ */
+  .cta{
+    text-align:center;
+    padding:170px 0 150px;
+    position:relative;overflow:hidden;
+  }
+  .cta-glow{
+    position:absolute;left:50%;bottom:-40%;transform:translateX(-50%);
+    width:min(1000px,150vw);aspect-ratio:2/1;
+    background:radial-gradient(ellipse at center,rgba(184,149,95,0.2),transparent 65%);
+    filter:blur(30px);pointer-events:none;
+  }
+  .cta h2{
+    font-size:clamp(40px,7vw,88px);
+    font-weight:700;line-height:1.04;letter-spacing:-0.035em;
+    max-width:16ch;margin:0 auto;
+  }
+  .cta p{margin:24px auto 0;max-width:48ch;font-size:19px;color:var(--grey);}
+  .cta .hero-actions{margin-top:44px;}
+  .cta-mail{display:block;margin-top:28px;font-size:15px;color:var(--grey-dark);}
+  .cta-mail a{color:var(--bronze-hi);font-weight:600;}
+  .cta-mail a:hover{text-decoration:underline;}
+
+  /* ============ FOOTER ============ */
+  footer{border-top:1px solid var(--hairline-soft);padding:36px 0 48px;}
+  .foot-inner{
+    display:flex;flex-wrap:wrap;gap:12px 40px;
+    justify-content:space-between;align-items:baseline;
+    color:var(--grey-dark);font-size:13px;
+  }
+  .foot-inner b{font-size:15px;font-weight:600;color:var(--white);}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-brand" aria-label="Taleel Software — home">Taleel<span>.</span>Software</a>
+    <div class="nav-links">
+      <a href="#systems">Ready Systems</a>
+      <a href="#engineering">Engineering</a>
+      <a href="#house">The House</a>
+      <a href="#method">Method</a>
+      <a href="#contact" class="nav-cta">Talk to us</a>
+    </div>
+  </div>
+  <div class="nav-progress" id="navProgress"></div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-glow" data-parallax="-0.15"></div>
+  <div class="hero-content" id="heroContent">
+    <span class="eyebrow reveal">Taleel Software · Nairobi, Kenya</span>
+    <h1 class="reveal" data-delay="1">Software that runs your <span class="grad">business.</span></h1>
+    <p class="hero-sub reveal" data-delay="2">
+      We build production systems for companies in Kenya and East Africa —
+      ready-to-deploy platforms and custom AI that automate operations and grow profit.
+    </p>
+    <div class="hero-actions reveal" data-delay="3">
+      <a class="btn btn-primary" href="#contact">Start a conversation</a>
+      <a class="btn btn-ghost" href="#systems">Explore ready systems</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">Scroll</div>
+</header>
+
+<!-- ============ READY SYSTEMS ============ -->
+<section id="systems">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Ready Systems</span>
+      <h2 class="reveal" data-delay="1">Built. Proven.<br/><span class="grad">Ready to deploy.</span></h2>
+      <p class="reveal" data-delay="2">
+        These aren't proposals — they're working platforms already running real businesses.
+        Configured to your operation and live in weeks, not quarters.
+      </p>
+    </div>
+
+    <!-- Product 1: Rental Property Management -->
+    <div class="product reveal-scale">
+      <div class="product-copy">
+        <span class="product-kicker">Property Management</span>
+        <h3>Rent, collected and reconciled.</h3>
+        <p>A complete rental property management system for landlords, agents, and property managers — tenant ledgers, automated invoicing, and payments matched across M-Pesa and five bank sources without a spreadsheet in sight.</p>
+        <ul class="product-feats">
+          <li>Automatic M-Pesa &amp; bank reconciliation</li>
+          <li>Tenant ledgers, invoicing &amp; arrears tracking</li>
+          <li>Owner statements and portfolio dashboards</li>
+          <li>Built for multi-property, multi-agent operations</li>
+        </ul>
+        <a class="product-link" href="#contact">See it with your properties <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="product-visual">
+        <div class="mock" data-parallax="0.06" aria-hidden="true">
+          <div class="mock-bar"><i></i><i></i><i></i><span>Portfolio · July 2026</span></div>
+          <div class="mock-stats">
+            <div class="mock-stat"><em>Collected</em><b>KES 4.2M</b><u>▲ 96% of due</u></div>
+            <div class="mock-stat"><em>Units</em><b>212</b><u>▲ 8 new leases</u></div>
+            <div class="mock-stat"><em>Arrears</em><b>KES 168K</b><u>▼ 12% this month</u></div>
+          </div>
+          <div class="mock-rows">
+            <div class="mock-row"><div><b>Kilimani Court · A-14</b><em>M-Pesa · TXN QGH72…</em></div><span class="pill pill-ok">Reconciled</span></div>
+            <div class="mock-row"><div><b>Westpark Suites · 3B</b><em>Equity Bank · Ref 88213</em></div><span class="pill pill-ok">Reconciled</span></div>
+            <div class="mock-row"><div><b>Ridge View · B-07</b><em>Co-op Bank · pending match</em></div><span class="pill pill-wait">Matching…</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2: AI Conversational Vision -->
+    <div class="product flip reveal-scale">
+      <div class="product-copy">
+        <span class="product-kicker">AI Conversational Vision</span>
+        <h3>Software that sees. And speaks.</h3>
+        <p>Vision-powered AI that understands what the camera sees and holds a conversation about it — product identification, document capture, visual quality checks, and customer-facing experiences like virtual try-on.</p>
+        <ul class="product-feats">
+          <li>Real-time image &amp; video understanding</li>
+          <li>Natural conversation over what it sees</li>
+          <li>Virtual try-on for live storefronts</li>
+          <li>Document &amp; ID capture with extraction</li>
+        </ul>
+        <a class="product-link" href="#contact">Book a live demo <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="product-visual">
+        <div class="mock" data-parallax="0.06" aria-hidden="true">
+          <div class="mock-bar"><i></i><i></i><i></i><span>Vision Session · Live</span></div>
+          <div class="mock-cam">
+            <div class="scanline"></div>
+            <div class="cam-box" style="top:34%;left:12%;width:34%;height:44%;" data-label="Denim jacket · 98%"></div>
+            <div class="cam-box" style="top:52%;left:58%;width:28%;height:34%;" data-label="Sneaker · 94%"></div>
+          </div>
+          <div class="mock-chat">
+            <div class="bubble bubble-user">Do you have this jacket in medium?</div>
+            <div class="bubble bubble-ai">Yes — the indigo denim jacket is in stock in M and L. Want me to add the medium to your cart, or show it on your photo first?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 3: AI Agents -->
+    <div class="product reveal-scale">
+      <div class="product-copy">
+        <span class="product-kicker">AI Agents &amp; Automation</span>
+        <h3>Your operations, on autopilot.</h3>
+        <p>AI agents wired into your actual workflows — not chatbots bolted onto a website. They read the inbox, chase the payment, update the ledger, and flag what needs a human, so your team works the exceptions instead of the routine.</p>
+        <ul class="product-feats">
+          <li>Agents integrated into real business workflows</li>
+          <li>Automated follow-ups, reporting &amp; data entry</li>
+          <li>Profit optimization from your own numbers</li>
+          <li>Human-in-the-loop where it matters</li>
+        </ul>
+        <a class="product-link" href="#contact">Map your first workflow <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="product-visual">
+        <div class="mock" data-parallax="0.06" aria-hidden="true">
+          <div class="mock-bar"><i></i><i></i><i></i><span>Agent Run · Collections</span></div>
+          <div class="flow">
+            <div class="node"><span class="node-dot">◈</span><div><b>Scan payment feeds</b><em>M-Pesa + 5 bank sources · every 10 min</em></div><span class="pill pill-ok">Done</span></div>
+            <div class="flow-link"></div>
+            <div class="node"><span class="node-dot">◈</span><div><b>Match &amp; update ledgers</b><em>212 units · 3 unmatched</em></div><span class="pill pill-ok">Done</span></div>
+            <div class="flow-link"></div>
+            <div class="node node-live"><span class="node-dot">◈</span><div><b>Draft arrears follow-ups</b><em>14 tenants · SMS + email queued</em></div><span class="pill pill-wait">Running</span></div>
+            <div class="flow-link"></div>
+            <div class="node"><span class="node-dot">◈</span><div><b>Escalate exceptions</b><em>Flag 2 disputes for the manager</em></div><span class="pill pill-wait">Waiting</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat reveal"><b class="grad"><span data-count="4">0</span></b><span>ventures run on our stack</span></div>
+    <div class="stat reveal" data-delay="1"><b class="grad"><span data-count="6">0</span></b><span>payment sources reconciled</span></div>
+    <div class="stat reveal" data-delay="2"><b class="grad"><span data-count="24">0</span>/7</b><span>monitored production systems</span></div>
+    <div class="stat reveal" data-delay="3"><b class="grad"><span data-count="2">0</span></b><span>working days to a response</span></div>
+  </div>
+</div>
+
+<!-- ============ CUSTOM ENGINEERING (light) ============ -->
+<section class="light" id="engineering">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Custom Engineering</span>
+      <h2 class="reveal" data-delay="1">When ready-made<br/>isn't enough.</h2>
+      <p class="reveal" data-delay="2">
+        Four disciplines, one standard. Every build ships with documentation, monitoring,
+        and a clear handover — because software you can't maintain is a liability, not an asset.
+      </p>
+    </div>
+    <div class="disc-grid">
+      <div class="disc reveal">
+        <h3>Product engineering</h3>
+        <p>Full-cycle web and mobile products — from schema design to app-store release. Built on a modern real-time stack so your product feels fast on day one and on day one thousand.</p>
+        <div class="disc-tags"><span class="tag">Next.js</span><span class="tag">Convex</span><span class="tag">React Native</span></div>
+      </div>
+      <div class="disc reveal" data-delay="1">
+        <h3>AI systems</h3>
+        <p>Applied AI that earns its keep — agent pipelines, retrieval systems, and LLM-powered features integrated into real workflows, not bolted on as a demo.</p>
+        <div class="disc-tags"><span class="tag">Claude API</span><span class="tag">Agent pipelines</span><span class="tag">Vision</span></div>
+      </div>
+      <div class="disc reveal" data-delay="2">
+        <h3>Financial infrastructure</h3>
+        <p>Payments, reconciliation, and money movement built for East African rails — M-Pesa, bank integrations, and IPN flows with idempotency and audit trails as first-class requirements.</p>
+        <div class="disc-tags"><span class="tag">M-Pesa / Daraja</span><span class="tag">Bank APIs</span><span class="tag">Reconciliation</span></div>
+      </div>
+      <div class="disc reveal" data-delay="3">
+        <h3>Operations platforms</h3>
+        <p>Internal systems that run the business — admin portals, manager dashboards, field and rider apps, and the API layer that keeps them honest with each other.</p>
+        <div class="disc-tags"><span class="tag">Multi-branch</span><span class="tag">Role-based access</span><span class="tag">Reporting</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE HOUSE (dark register) ============ -->
+<section id="house">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">The House</span>
+      <h2 class="reveal" data-delay="1">We run what we sell.</h2>
+      <p class="reveal" data-delay="2">
+        Taleel Software is the engineering division of Taleel Holdings. The holding company operates
+        its own ventures — so the systems we sell are the systems we trust with our own revenue.
+      </p>
+    </div>
+    <div class="register-list reveal" data-delay="2">
+      <div class="reg-row">
+        <span class="reg-no">TH—01</span>
+        <span class="reg-name">Swyft</span>
+        <span class="reg-desc">Proptech &amp; logistics platform for the Kenyan rental market.</span>
+        <span class="reg-status">Operating</span>
+      </div>
+      <div class="reg-row">
+        <span class="reg-no">TH—02</span>
+        <span class="reg-name">Swyft Agent</span>
+        <span class="reg-desc">Rent reconciliation SaaS across five bank and mobile-money sources.</span>
+        <span class="reg-status">Operating</span>
+      </div>
+      <div class="reg-row">
+        <span class="reg-no">TH—03</span>
+        <span class="reg-name">Munchez</span>
+        <span class="reg-desc">Cloud kitchen venture serving Nairobi.</span>
+        <span class="reg-status">Operating</span>
+      </div>
+      <div class="reg-row active">
+        <span class="reg-no">TH—04</span>
+        <span class="reg-name">Taleel Software</span>
+        <span class="reg-desc">The engineering division — client work, product builds, and the technical backbone of the house.</span>
+        <span class="reg-status">This division</span>
+      </div>
+    </div>
+    <p class="reg-note reveal">Every venture in the register runs on infrastructure built by this division. When we propose an architecture, it's one we've already trusted with our own money.</p>
+  </div>
+</section>
+
+<!-- ============ METHOD (light) ============ -->
+<section class="light" id="method">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Method</span>
+      <h2 class="reveal" data-delay="1">How an engagement runs.</h2>
+    </div>
+    <div class="method-grid">
+      <div class="method reveal">
+        <h3>Findings before quotes</h3>
+        <p>We start with a short discovery — your operations, your data, your constraints — and return a written findings document and a fixed-scope proposal. No estimates from thin air.</p>
+      </div>
+      <div class="method reveal" data-delay="1">
+        <h3>Phased, visible delivery</h3>
+        <p>Work ships in phases with working software at each gate. You see the product in your hands early, and every phase has a defined acceptance line.</p>
+      </div>
+      <div class="method reveal" data-delay="2">
+        <h3>Handover or retainer</h3>
+        <p>At delivery you get documentation, credentials, and a monitored, secured system. Keep us on retainer for evolution, or take the keys — either way, you own it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="contact">
+  <div class="cta-glow" data-parallax="-0.1"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal">Start a conversation</span>
+    <h2 class="reveal" data-delay="1">Tell us what the business needs to do. <span class="grad">We'll tell you what to build.</span></h2>
+    <p class="reveal" data-delay="2">Enquiries answered within two working days, with a discovery call proposed where there's a fit.</p>
+    <div class="hero-actions reveal" data-delay="3">
+      <a class="btn btn-primary" href="mailto:software@taleelholdings.com?subject=Project%20enquiry%20—%20Taleel%20Software">Email the division</a>
+      <a class="btn btn-ghost" href="#systems">Revisit the systems</a>
+    </div>
+    <span class="cta-mail reveal" data-delay="4">or write directly to <a href="mailto:software@taleelholdings.com">software@taleelholdings.com</a></span>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <b>Taleel Software Ltd</b>
+    <span>A division of Taleel Holdings Ltd · Nairobi, Kenya</span>
+    <span>© 2026 Taleel Holdings Ltd. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- Reveal on scroll --- */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal, .reveal-scale').forEach(el=>io.observe(el));
+
+  /* --- Count-up stats --- */
+  const counterIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      counterIO.unobserve(e.target);
+      const el = e.target, target = +el.dataset.count;
+      if(reduced){ el.textContent = target; return; }
+      const t0 = performance.now(), dur = 1400;
+      (function tick(now){
+        const p = Math.min((now - t0)/dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1-p, 3)));
+        if(p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  },{threshold:0.6});
+  document.querySelectorAll('[data-count]').forEach(el=>counterIO.observe(el));
+
+  /* --- Scroll-linked: nav, progress bar, hero fade, parallax --- */
+  const nav = document.getElementById('nav');
+  const progress = document.getElementById('navProgress');
+  const hero = document.getElementById('heroContent');
+  const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
+  let ticking = false;
+
+  function onScroll(){
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 24);
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+
+    if(!reduced){
+      if(hero){
+        const vh = window.innerHeight;
+        const p = Math.min(y / (vh * 0.85), 1);
+        hero.style.opacity = String(1 - p * 0.95);
+        hero.style.transform = 'translateY(' + (y * 0.28) + 'px) scale(' + (1 - p * 0.06) + ')';
+      }
+      const vh = window.innerHeight;
+      parallaxEls.forEach(el=>{
+        const r = el.getBoundingClientRect();
+        if(r.bottom < -100 || r.top > vh + 100) return;
+        const centerOffset = (r.top + r.height/2) - vh/2;
+        el.style.transform = 'translateY(' + (centerOffset * +el.dataset.parallax * -1) + 'px)';
+      });
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', ()=>{
+    if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+  }, {passive:true});
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
